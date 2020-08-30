@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="reset.css"> -->
+    <link rel="stylesheet" href="all.css">
+
+    
+</head>
+<body>
+    <div id='app'>
+        <form action="" class="contener">
+            <h3>基本資料填寫</h3>
+            <div class="basicQA borders"><span class="idTitle" :class="{RMsg : RidSwitch}">認證碼</span><span class="Required">*</span><br><input name="'認證碼'" class="inputText basicId" type="text" v-model='id' @blur = "checkId"></div>
+            <div class="basicQA borders"><span class="nameTitle" :class="{RMsg : RNameSwitch}">姓名</span><span class="Required">*</span><br><input name="'姓名'" class="inputText name" type="text" v-model='name'@blur='checkName'></div>
+            <div class="basicQA borders">性別 <span class="Required">*</span><br>
+                <label for="男" class="answerText">男</label><input  name='sex' type="radio" v-model='sex' value='男' id="男">
+                <label for='女' class="answerText">女</label><input  name='sex' type="radio" v-model='sex' value='女' id='女'>
+            </div>
+            <div class="basicQA borders"><span class="heightTitle" :class="{RMsg : RHeightSwitch}">身高</span><span class="Required">*</span><br><input class="inputText height" name="'身高'" type="number" v-model='height' @blur='checkHeight'></div>
+            <div class="basicQA borders"><span class="weightTitle" :class="{RMsg : RWeightSwitch}">體重</span> <span class="Required">*</span><br><input class="inputText weight" name="'體重'" type="number" v-model='weight' @blur='checkWeight'></div>
+            <div class="basicQA borders"><span class="ageTitle" :class="{RMsg : RAgeSwitch}">年齡</span><span class="Required">*</span><br><input class="inputText age" name="'年齡'" type="number" v-model='age' @blur='checkAge'></div>
+
+            <div class="basicQA borders"><span class="educationTitle" :class="{RMsg : REducationSwitch}">教育程度</span><span class="Required">*</span><br>
+                <select class="inputText education" name="'教育程度'" id="" v-model='education'@blur='checkEducation'>
+                    <option value="" disabled>--請選擇--</option>
+                    <option :value="item" v-for='item in educationData'>{{item}}</option>
+                </select>
+                </div>
+
+            <div class="basicQA borders"><span class="activeTitle">日常活動強度</span><span class="Required">*</span><br>
+                <label class="answerText">低</label><input name='active' type="radio" v-model='active' value='低'>
+                <label class="answerText">稍低</label><input name='active' type="radio" v-model='active' value='稍低'>
+                <label class="answerText">適度</label><input name='active' type="radio" v-model='active' value='適度'>
+                <label class="answerText">高</label><input name='active' type="radio" v-model='active' value='高'>
+            </div>
+
+            <div class="basicQA borders">
+                是否吃素 <span class="Required">*</span><br>
+                <label class="answerText">是</label><input type="radio" name="Vegetarian" v-model='Vegetarian' value="是">
+                <label class="answerText">否</label><input type="radio" name="Vegetarian" v-model='Vegetarian' value="否">
+            </div>
+
+            <div class="basicQA borders" v-if='Vegetarian == "是"' >素食種類 <span class="Required">*</span><br>
+                <select class="inputText" class="vegetarianKind" name="素食種類" id="" v-model='vegetarianKind'@blur='check'>
+                    <option value="" disabled>--請選擇--</option>
+                    <option :value="item"v-for='item in vegetarianData'>{{item}}</option>
+                </select>
+            </div>
+
+            <div  class="basicQA borders" v-if='sex =="女"'>
+                目前是否懷孕 <span class="Required">*</span><br>
+                <label class="answerText">是</label><input id="sex" name='pregnancy' type="radio" v-model='pregnancy' value='是'>
+                <label class="answerText">否</label><input id="sex" name='pregnancy' type="radio" v-model='pregnancy' value='否'>
+            </div>
+
+            <div  class="basicQA borders" v-if='sex =="女"'>
+                目前是否哺乳中 <span class="Required">*</span><br>
+                <label class="answerText">是</label><input name='breastFeeding' type="radio" v-model='breastFeeding' value='是'>
+                <label class="answerText">否</label><input name='breastFeeding' type="radio" v-model='breastFeeding' value='否'>
+            </div>
+
+            <div class="basicQA borders">最近是否因為體重改變飲食習慣 <span class="Required">*</span><br>
+                <label class="answerText">是</label><input name='weightChangeEating' type="radio" v-model='weightChangeEating' value='是'>
+                <label class="answerText">否</label><input name='weightChangeEating' type="radio" v-model='weightChangeEating' value='否'>
+            </div>
+
+            <div class="basicQA borders"><span class="toothacheChangeEatingTitle" :class="{RMsg : RToothacheChangeEatingSwitch}">最近一個月是否因為牙痛改變飲食習慣</span><span class="Required">*</span><br>
+                <select class="inputText toothacheChangeEating" name="'因牙痛改變飲食習慣'" id="" v-model='toothacheChangeEating' @blur=checkToothacheChangeEating>
+                    <option value="" disabled>--請選擇--</option>
+                    <option :value="item"v-for='item in toothacheData'>{{item}}</option>
+                </select>
+            </div>
+
+            <div class="basicQA borders"><span class="toothHealtTitle" :class="{RMsg : RtoothHealtSwitch}">牙齒健康狀態</span><span class="Required">*</span><br>
+                <select class="inputText toothHealt" name="'牙齒健康狀態'" id="" v-model='toothHealt' @blur='checktoothHealt'>
+                    <option value="" disabled>--請選擇--</option>
+                    <option :value="item"v-for='item in toothHealthData'>{{item}}</option>
+                </select>
+            </div>
+
+            <div class="basicQA borders"><span class='OilLevelTitle' :class="{RMsg : ROilLevelSwitch}">過去一個月吃過的食物油度與自助餐相比</span><span class="Required">*</span><br>
+                <select class="inputText OilLevel" name="'食物油度'" id="" v-model='OilLevel' @blur='checkOilLevel'>
+                    <option value="" disabled>--請選擇--</option>
+                    <option :value="item"v-for='item in OilLevelData'>{{item}}</option>
+                </select>
+            </div>
+            <input type="button" class='btn' value="進入問卷" @click='sendCheck'>
+
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="all.js"></script>
+
+</body>
+</html>
